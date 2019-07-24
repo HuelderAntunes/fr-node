@@ -1,0 +1,26 @@
+// Imports
+const express = require('express')
+const mongoose = require('mongoose')
+const env = require('dotenv')
+env.config()
+const bodyParser = require('body-parser')
+const cors = require('cors')
+
+// Initialize express app
+const app = express()
+
+// Connection to DB
+mongoose.connect('put your uri here', {
+  useNewUrlParser: true }, () => console.log('connected to DB!')
+)
+
+// Middlewares
+app.use(bodyParser.json())
+app.use(cors())
+
+// import your routes
+const homeRoute = require('./routes/home.js')
+// Route middlewares
+app.use('/', homeRoute)
+
+app.listen(3000 || process.env.PORT, () => console.log('Server up and running ' + '<%= props.name %>'))
