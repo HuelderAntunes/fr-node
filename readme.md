@@ -1,6 +1,6 @@
 # FR Node CLI
 
-*It's a CLI to help you build a API using express, mongoose, body-parser, etc*
+*It's a CLI to help you build a API using express, mongoose, body-parser, helmet, etc*
 
 ## Installing
 

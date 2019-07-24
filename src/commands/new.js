@@ -18,8 +18,8 @@ module.exports = {
     await cd(name.toLowerCase())
     await run('npm init -y', { trim: true })
     await run('yarn add -D nodemon', { trim: true })
-    await run('yarn add express body-parser cors mongoose dotenv', { trim: true })
-
+    await run('yarn add express body-parser cors mongoose dotenv helmet', { trim: true })
+    
     await generate({
       template: 'boilerplate.js.ejs',
       target: 'index.js',
