@@ -1,7 +1,8 @@
 {
   "name": "fr-node",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "fr-node CLI",
+  "author": "Fabio Ramatis <me@framatis.com>",
   "bin": {
     "fr-node": "bin/fr-node"
   },
@@ -21,6 +22,7 @@
     "bin"
   ],
   "license": "MIT",
+  "repository": "https://github.com/FahRamatis/fr-node",
   "dependencies": {
     "gluegun": "^2.1.0",
     "shelljs": "^0.8.3"
