@@ -2,7 +2,6 @@
   "name": "fr-node",
   "version": "0.0.1",
   "description": "fr-node CLI",
-  "private": true,
   "bin": {
     "fr-node": "bin/fr-node"
   },

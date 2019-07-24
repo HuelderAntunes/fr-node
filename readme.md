@@ -2,6 +2,13 @@
 
 *It's a CLI to help you build a API using express, mongoose, body-parser, etc*
 
+## Installing
+
+```shell
+  yarn global add fr-node OR 
+  npm install -g fr-node
+```
+
 ## Commands
 ```shell
   fr-node new NomeDoProjeto
