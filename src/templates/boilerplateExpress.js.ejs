@@ -25,4 +25,5 @@ const homeRoute = require('./routes/home.js')
 // Route middlewares
 app.use('/', homeRoute)
 
+// Initialize the server
 app.listen(3000 || process.env.PORT, () => console.log('Server up and running ' + '<%= props.name %>'))

@@ -1,8 +1,17 @@
 {
   "name": "fr-node",
-  "version": "0.0.3",
+  "version": "0.0.5-1",
   "description": "fr-node CLI",
   "author": "Fabio Ramatis <me@framatis.com>",
+  "contributors": ["Huelder Antunes"],
+  "keywords": [
+    "CLI",
+    "node.js",
+    "javascript",
+    "express.js",
+    "restify.js",
+    "gluegun"
+  ],
   "bin": {
     "fr-node": "bin/fr-node"
   },

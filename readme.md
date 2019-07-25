@@ -1,6 +1,6 @@
 # FR Node CLI
 
-*It's a CLI to help you build a API using express, mongoose, body-parser, helmet, etc*
+*It's a CLI to help you build a REST API using node, feel free to use npm, yarn, restify, express. Doens't metter, just use and build whatever you want!*
 
 ## Installing
 
@@ -11,8 +11,13 @@
 
 ## Commands
 ```shell
-  fr-node new NomeDoProjeto
+  fr-node init NameOfProject
 ```
+
+## TODO
+- [] Return better errors
+- [] Implement tests
+- [] Improve the runtime
 
 # License
 
