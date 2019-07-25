@@ -15,10 +15,9 @@
 ```
 
 ## TODO
-- [] Return better errors
-- [] Implement tests
-- [] Improve the runtime
-
+- Return better errors
+- Implement tests
+- Improve the runtime
 # License
 
 MIT - see LICENSE
