@@ -35,7 +35,6 @@
   "license": "MIT",
   "repository": "https://github.com/FahRamatis/fr-node",
   "dependencies": {
-    "global": "^4.4.0",
     "gluegun": "^2.1.0",
     "shelljs": "^0.8.3"
   },
