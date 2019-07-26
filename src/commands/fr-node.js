@@ -3,6 +3,6 @@ module.exports = {
   run: async toolbox => {
     const { print } = toolbox
 
-    print.info('Commands available: fr-node new NameProject')
+    print.info('Commands available: fr-node init NameProject')
   }
 }

@@ -3,7 +3,9 @@
   "version": "0.0.5-1",
   "description": "fr-node CLI",
   "author": "Fabio Ramatis <me@framatis.com>",
-  "contributors": ["Huelder Antunes"],
+  "contributors": [
+    "Huelder Antunes <huelderantuness@gmail.com> (https://nentier.com)"
+  ],
   "keywords": [
     "CLI",
     "node.js",
@@ -33,12 +35,13 @@
   "license": "MIT",
   "repository": "https://github.com/FahRamatis/fr-node",
   "dependencies": {
+    "global": "^4.4.0",
     "gluegun": "^2.1.0",
     "shelljs": "^0.8.3"
   },
   "devDependencies": {
     "jest": "^23.6.0",
-    "prettier": "^1.12.1",
+    "prettier": "^1.18.2",
     "standard": "^12.0.1"
   },
   "jest": {

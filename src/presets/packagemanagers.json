@@ -1,0 +1,18 @@
+{
+  "yarn": {
+    "cli": "yarn",
+    "install": "add",
+    "init": "init",
+    "acceptAll": "-y",
+    "dev": "-D",
+    "run": "run"
+  },
+  "npm": {
+    "cli": "npm",
+    "install": "install",
+    "init": "init",
+    "acceptAll": "-y",
+    "dev": "--save-dev",
+    "run": "run"
+  }
+}

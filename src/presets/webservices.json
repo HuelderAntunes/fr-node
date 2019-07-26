@@ -1,0 +1,43 @@
+{
+  "express.js": {
+    "generators": [
+      {
+        "template": "boilerplateExpress.js.ejs",
+        "target": "index.js"
+      },
+      {
+        "template": "routeExpress.js.ejs",
+        "target": "routes/home.js"
+      }
+    ],
+    "dependencies": [
+      "express",
+      "body-parser",
+      "cors",
+      "mongoose",
+      "dotenv",
+      "helmet"
+    ]
+  },
+  "restify.js": {
+    "generators": [
+      { "template": "boilerplateRestify.js.ejs", "target": "index.js" },
+      {
+        "template": "routeRestify.js.ejs",
+        "target": "routes/home.js"
+      },
+      {
+        "template": "indexRoutesRestify.js.ejs",
+        "target": "routes/index.js"
+      }
+    ],
+
+    "dependencies": [
+      "restify",
+      "restify-cors-middleware",
+      "mongoose",
+      "dotenv",
+      "helmet-csp"
+    ]
+  }
+}

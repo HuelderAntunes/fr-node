@@ -3,6 +3,10 @@ module.exports = {
   name: 'init',
   description: 'Initialize a new project using express.js',
   run: async toolbox => {
+    const packageManagers = require('../presets/packagemanagers.json')
+    const webServices = require('../presets/webservices.json')
+  
+    
     const {
       parameters,
       system: { run },
@@ -11,90 +15,66 @@ module.exports = {
       filesystem: { read, write },
       prompt: { ask }
     } = toolbox
+
+    const asks = {
+      chooseYarnOrNpm: {
+        type: 'list',
+        name: 'packageManager',
+        message: 'You prefer installing with yarn or npm?',
+        choices: Object.keys(packageManagers)
+      },
+      chooseExpressOrRestify: {
+        type: 'list',
+        name: 'webService',
+        message: 'You prefer using Express.js or Restify.js?',
+        choices: Object.keys(webServices)
+      }
+    }
+
     const name = parameters.first
 
     if (!name) return error('Name of the project must be specified')
+    await ask(asks.chooseYarnOrNpm)
+    const answers = await ask(asks.chooseExpressOrRestify)
 
-    const chooseYarnOrNpm = {
-      type: 'list',
-      name: 'yarnOrNpm',
-      message: 'You prefer installing with yarn or npm?',
-      choices: ['yarn', 'npm']
-    }
+    packageManager = packageManagers[answers["packageManager"]]
+    webService =  webServices[answers["webService"]]
 
-    const answer = await ask(chooseYarnOrNpm)
+    await run(`mkdir ${name.toLowerCase()}`, { trim: true })
+    await cd(name.toLowerCase())
 
-    const chooseExpressOrRestify = {
-      type: 'list',
-      name: 'expressOrRestify',
-      message: 'You prefer using Express.js or Restify.js?',
-      choices: ['express.js', 'restify.js']
-    }
+    await run(
+      "npm init -y",
+      { trim: true }
+    )
+    await run(
+      [
+        packageManager.cli,
+        packageManager.install,
+        packageManager.dev,
+        'nodemon'
+      ].join(' '),
+      { trim: true }
+    )
+    await run(
+      `${[packageManager.cli, packageManager.install].join(
+        ' '
+      )} ${webService.dependencies.join(' ')}`,
+      {
+        trim: true
+      }
+    )
 
-    const answer2 = await ask(chooseExpressOrRestify)
+    await run('mkdir routes', { trim: true })
+    await run('mkdir model', { trim: true })
 
-    if (answer.yarnOrNpm === 'yarn' && answer2.expressOrRestify === 'express.js') {
-      await run(`mkdir ${name.toLowerCase()}`, { trim: true })
-      await cd(name.toLowerCase())
-      await run('npm init -y', { trim: true })
-      await run('yarn add -D nodemon', { trim: true })
-      await run('yarn add express body-parser cors mongoose dotenv helmet', { trim: true })
-    } else if (answer.yarnOrNpm === 'yarn' && answer2.expressOrRestify === 'restify.js') {
-      await run(`mkdir ${name.toLowerCase()}`, { trim: true })
-      await cd(name.toLowerCase())
-      await run('npm init -y', { trim: true })
-      await run('yarn add -D nodemon', { trim: true })
-      await run('yarn add restify restify-cors-middleware mongoose dotenv helmet-csp', { trim: true })
-    } else if (answer.yarnOrNpm === 'npm' && answer2.expressOrRestify === 'express.js') {
-      await run(`mkdir ${name.toLowerCase()}`, { trim: true })
-      await cd(name.toLowerCase())
-      await run('npm init -y', { trim: true })
-      await run('npm install nodemon --save-dev', { trim: true })
-      await run('npm install express body-parser cors mongoose dotenv helmet --save', { trim: true })
-    } else if (answer.yarnOrNpm === 'npm' && answer2.expressOrRestify === 'restify.js') {
-      await run(`mkdir ${name.toLowerCase()}`, { trim: true })
-      await cd(name.toLowerCase())
-      await run('npm init -y', { trim: true })
-      await run('npm install nodemon --save-dev', { trim: true })
-      await run('npm install restify restify-cors-middleware mongoose dotenv helmet-csp --save', { trim: true })
-    }
-
-    if (answer2.expressOrRestify === 'express.js') {
+   await Promise.all(webService.generators.map( async generator => {
       await generate({
-        template: 'boilerplateExpress.js.ejs',
-        target: 'index.js',
+        template: generator.template,
+        target: generator.target,
         props: { name }
       })
-
-      await run('mkdir routes', { trim: true })
-      await run('mkdir model', { trim: true })
-
-      await generate({
-        template: 'routeExpress.js.ejs',
-        target: 'routes/home.js',
-        props: { name }
-      })
-    } else {
-      await generate({
-        template: 'boilerplateRestify.js.ejs',
-        target: 'index.js',
-        props: { name }
-      })
-
-      await run('mkdir routes', { trim: true })
-      await run('mkdir model', { trim: true })
-
-      await generate({
-        template: 'routeRestify.js.ejs',
-        target: 'routes/home.js',
-        props: { name }
-      })
-
-      await generate({
-        template: 'indexRoutesRestify.js.ejs',
-        target: 'routes/index.js'
-      })
-    }
+    }))
 
     const json = await read('package.json', 'json')
     json.scripts.start = 'node index.js'
@@ -102,8 +82,11 @@ module.exports = {
     await write('package.json', json)
     await run('code .', { trim: true })
     success(
-      answer.yarnOrNpm === 'yarn' ? `Generated successfully!\nNow just: yarn run dev`
-        : `Generated successfully!\nNow just: npm run dev`
+      `Generated successfully!\nNow just: ${[
+        packageManager.cli,
+        packageManager.run,
+        'dev'
+      ].join(' ')}`
     )
   }
 }
