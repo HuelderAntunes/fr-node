@@ -1,12 +1,12 @@
 const { cd } = require('shelljs')
+const packageManagers = require('../presets/packagemanagers.json')
+const webServices = require('../presets/webservices.json')
+ 
 module.exports = {
   name: 'init',
   description: 'Initialize a new project using express.js',
   run: async toolbox => {
-    const packageManagers = require('../presets/packagemanagers.json')
-    const webServices = require('../presets/webservices.json')
-  
-    
+        
     const {
       parameters,
       system: { run },
